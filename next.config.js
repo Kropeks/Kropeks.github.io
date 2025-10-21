@@ -10,7 +10,7 @@ const nextConfig = {
     NEXT_PUBLIC_AUTH_DISABLED: process.env.DISABLE_AUTH === 'true' ? 'true' : 'false',
   },
   images: {
-    domains: ['www.themealdb.com', 'localhost', 'edamam-product-images.s3.amazonaws.com', 'via.placeholder.com', 'www.edamam.com'],
+    domains: ['www.themealdb.com', 'localhost', 'via.placeholder.com'],
     remotePatterns: [
       {
         protocol: 'https',

@@ -913,14 +913,12 @@ export default function Recipes() {
               <Search className="h-16 w-16 mx-auto" />
             </div>
             <h3 className="text-xl font-semibold text-olive-800 dark:text-olive-200 mb-2">
-              {selectedSource === 'edamam' ? 'Recipes currently unavailable' : 'No recipes found'}
+              No recipes found
             </h3>
             <p className="text-olive-600 dark:text-olive-200/80 mb-4">
-              {selectedSource === 'edamam'
-                ? 'Unable to load recipes. This might be due to API limitations or connectivity issues.'
-                : isInitialLoad
-                  ? 'Unable to load recipes. Please check your internet connection or try again later.'
-                  : 'Try adjusting your search criteria'
+              {isInitialLoad
+                ? 'Unable to load recipes. Please check your internet connection or try again later.'
+                : 'Try adjusting your search criteria'
               }
             </p>
             <div className="flex justify-center gap-4">

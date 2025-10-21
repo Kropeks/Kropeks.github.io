@@ -16,12 +16,6 @@ const nextConfig = {
         pathname: '/images/**',
       },
       {
-        protocol: 'https',
-        hostname: 'edamam-product-images.s3.amazonaws.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
         protocol: 'http',
         hostname: 'localhost',
         port: '3000',

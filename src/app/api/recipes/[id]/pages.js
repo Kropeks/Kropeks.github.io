@@ -25,15 +25,8 @@ export default function RecipeDetail() {
   const fetchRecipe = async () => {
     setLoading(true)
     try {
-      // Determine the correct source based on the ID format or provided source
-      let effectiveSource = source;
-      
-      // If source is not provided, try to determine it from the ID
-      if (!effectiveSource) {
-        // Spoonacular IDs are typically numeric, MealDB IDs are typically numeric but could be strings
-        effectiveSource = 'mealdb'; // Default to mealdb if we can't determine
-      }
-      
+      const effectiveSource = source || 'mealdb'
+
       const response = await fetch(`/api/external/recipes?source=${effectiveSource}&id=${id}`)
       if (!response.ok) {
         throw new Error(`Failed to fetch recipe: ${response.status} ${response.statusText}`)
@@ -325,34 +318,33 @@ export default function RecipeDetail() {
               )}
             </div>
 
-            {/* Additional info for Edamam recipes */}
-            {source === 'edamam' && (
+            {recipe.url && (
               <div className="mt-8 pt-6 border-t border-gray-200">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {recipe.dietLabels && recipe.dietLabels.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Diet Labels</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {recipe.dietLabels.map((label, index) => (
-                          <span key={index} className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
-                            {label}
-                          </span>
-                        ))}
-                      </div>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0">
+                      <svg className="h-5 w-5 text-gray-700 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd" />
+                      </svg>
                     </div>
-                  )}
-                  {recipe.healthLabels && recipe.healthLabels.length > 0 && (
-                    <div>
-                      <h4 className="font-semibold text-gray-900 mb-2">Health Labels</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {recipe.healthLabels.slice(0, 5).map((label, index) => (
-                          <span key={index} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
-                            {label}
-                          </span>
-                        ))}
-                      </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-900 mb-2">Original Recipe Source</h4>
+                      <p className="text-sm text-black mb-3">
+                        This recipe is sourced from {recipe.source || 'MealDB'}. For complete cooking instructions and methods, please visit the original recipe page.
+                      </p>
+                      <a
+                        href={recipe.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-olive-600 text-white px-4 py-2 rounded-lg hover:bg-olive-700 transition-colors font-medium"
+                      >
+                        <svg className="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                        </svg>
+                        View Full Recipe Instructions
+                      </a>
                     </div>
-                  )}
+                  </div>
                 </div>
               </div>
             )}

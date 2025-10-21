@@ -58,21 +58,6 @@ export default async function handler(req, res) {
       };
     }
 
-    // Test Edamam
-    try {
-      const edamamFoods = await nutritionAPI.searchEdamamFoods(test);
-      results.apis.edamam = {
-        available: true,
-        foodsFound: edamamFoods.length,
-        sampleFood: edamamFoods[0] || null
-      };
-    } catch (error) {
-      results.apis.edamam = {
-        available: false,
-        error: error.message
-      };
-    }
-
     // Test combined search
     try {
       const combinedFoods = await nutritionAPI.searchFoodsCombined(test, 5);
